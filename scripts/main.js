@@ -11,24 +11,41 @@
 
 
 function handValue (hand) {
-  cont aces = []
-  //convert face cards
+  const aces = []
+  let handTotal = 0;
+
+  //convert face cards, remove aces to aces Array
   for (let i = 0; i < hand.length; i++) {
     let card = hand[i];
-    if (card === "J" || card === "K" || card === "Q") {
-      card = 10;
-      console.log("");
-    } else if (card === "A") {
-      hand.splice(i, 1);
-      aces.push(11);
+    if (card == "J" || card == "K" || card == "Q") {
+      hand[i] = 10;
+    } else if (card == "A") {
+      hand[i] = 0;
+      aces.push("A");
+    } else {
+      hand[i] = parseInt(card);
     }
   }
 
   //Add total wihtout Ace;
+  for (let i = 0; i < hand.length; i++) {
+    handTotal += hand[i];
+  }
 
-  //add Aces
+  //Add backi n Aces if they exist;
+  if(aces.length > 0) {
+    if (aces.length > 1 && handTotal > 9) {
+      for (let i = 0; i < aces.length; i++) {
+        handTotal++;
+      };
+    } else if (handTotal > 10) {
+      handTotal++;
+    } else if (handTotal <= 10) {
+      handTotal += 11;
+    }
+  }
 
-  return;
+  return handTotal;
 }
 
 
